@@ -1,9 +1,11 @@
 using AutoFixture;
+using ClearBank.DeveloperTest.Application.Factories;
+using ClearBank.DeveloperTest.Application.Services;
+using ClearBank.DeveloperTest.Application.Types;
 using ClearBank.DeveloperTest.Domain.Model;
 using ClearBank.DeveloperTest.Domain.Model.Enums;
 using ClearBank.DeveloperTest.Domain.Repositories;
 using ClearBank.DeveloperTest.Domain.Services;
-using ClearBank.DeveloperTest.Domain.Types;
 using Moq;
 using Xunit;
 
@@ -38,7 +40,10 @@ public class PaymentServiceTests
         _accountRepositoryMock = new Mock<IAccountRepository>();
         _accountRepositoryMock.Setup(r => r.GetAccount(ValidAccountNumber)).Returns(_account);
 
-        _sut = new PaymentService(_accountRepositoryMock.Object);
+        var accountRepositoryFactoryMock = new Mock<IAccountRepositoryFactory>();
+        accountRepositoryFactoryMock.Setup(f => f.GetAccountRepository()).Returns(_accountRepositoryMock.Object);
+
+        _sut = new PaymentService(new PaymentTransferService(), accountRepositoryFactoryMock.Object);
     }
 
     [Theory]

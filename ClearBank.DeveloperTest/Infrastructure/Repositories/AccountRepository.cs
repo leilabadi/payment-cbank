@@ -1,7 +1,7 @@
 ﻿using ClearBank.DeveloperTest.Domain.Model;
 using ClearBank.DeveloperTest.Domain.Repositories;
 
-namespace ClearBank.DeveloperTest.Data;
+namespace ClearBank.DeveloperTest.Infrastructure.Repositories;
 
 public class AccountRepository : IAccountRepository
 {

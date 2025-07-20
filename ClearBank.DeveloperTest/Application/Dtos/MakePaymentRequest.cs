@@ -1,6 +1,6 @@
 ﻿using ClearBank.DeveloperTest.Domain.Model.Enums;
 
-namespace ClearBank.DeveloperTest.Domain.Types;
+namespace ClearBank.DeveloperTest.Application.Types;
 
 public class MakePaymentRequest
 {
