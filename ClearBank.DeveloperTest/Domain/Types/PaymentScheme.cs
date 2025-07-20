@@ -1,9 +1,8 @@
-﻿namespace ClearBank.DeveloperTest.Domain.Types
+﻿namespace ClearBank.DeveloperTest.Domain.Types;
+
+public enum PaymentScheme
 {
-    public enum PaymentScheme
-    {
-        FasterPayments,
-        Bacs,
-        Chaps
-    }
+    FasterPayments,
+    Bacs,
+    Chaps
 }

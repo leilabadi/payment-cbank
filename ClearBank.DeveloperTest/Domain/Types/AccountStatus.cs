@@ -1,9 +1,8 @@
-﻿namespace ClearBank.DeveloperTest.Domain.Types
+﻿namespace ClearBank.DeveloperTest.Domain.Types;
+
+public enum AccountStatus
 {
-    public enum AccountStatus
-    {
-        Live,
-        Disabled,
-        InboundPaymentsOnly
-    }
+    Live,
+    Disabled,
+    InboundPaymentsOnly
 }

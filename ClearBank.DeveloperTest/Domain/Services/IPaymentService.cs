@@ -1,9 +1,8 @@
 ﻿using ClearBank.DeveloperTest.Domain.Types;
 
-namespace ClearBank.DeveloperTest.Domain.Services
+namespace ClearBank.DeveloperTest.Domain.Services;
+
+public interface IPaymentService
 {
-    public interface IPaymentService
-    {
-        MakePaymentResult MakePayment(MakePaymentRequest request);
-    }
+    MakePaymentResult MakePayment(MakePaymentRequest request);
 }
