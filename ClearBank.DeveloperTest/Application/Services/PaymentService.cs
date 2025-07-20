@@ -1,7 +1,6 @@
 ﻿using ClearBank.DeveloperTest.Application.Factories;
 using ClearBank.DeveloperTest.Application.Types;
 using ClearBank.DeveloperTest.Domain.Model;
-using ClearBank.DeveloperTest.Domain.Model.Enums;
 using ClearBank.DeveloperTest.Domain.Repositories;
 using ClearBank.DeveloperTest.Domain.Services;
 
@@ -20,22 +19,19 @@ public class PaymentService : IPaymentService
 
     public MakePaymentResult MakePayment(MakePaymentRequest request)
     {
-        Account account = _accountRepository.GetAccount(request.DebtorAccountNumber);
-        DateTime now = DateTime.UtcNow;
+        Account sourceAccount = _accountRepository.GetAccount(request.DebtorAccountNumber);
 
-        TransferTransaction transferTransaction = request.PaymentScheme switch
-        {
-            PaymentScheme.Bacs => new BacsTransaction(request.Amount, now, account, null),
-            PaymentScheme.Chaps => new ChapsTransaction(request.Amount, now, account, null),
-            PaymentScheme.FasterPayments => new FasterPaymentsTransaction(request.Amount, now, account, null),
-            _ => throw new ArgumentException($"Unsupported payment scheme: {request.PaymentScheme}"),
-        };
+        var factoryResolver = new TransferTransactionFactoryResolver();
+
+        var transferTransactionFactory = factoryResolver.ResolveTransactionFactory(request.PaymentScheme);
+
+        TransferTransaction transferTransaction = transferTransactionFactory.CreateTransaction(request.Amount, sourceAccount, null);
 
         var result = _paymentTransferService.Transfer(transferTransaction);
 
         if (result.Success)
         {
-            _accountRepository.UpdateAccount(account);
+            _accountRepository.UpdateAccount(sourceAccount);
             return MakePaymentResult.SuccessResult();
         }
 
