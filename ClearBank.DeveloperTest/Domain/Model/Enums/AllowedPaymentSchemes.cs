@@ -1,5 +1,6 @@
-﻿namespace ClearBank.DeveloperTest.Domain.Types;
+﻿namespace ClearBank.DeveloperTest.Domain.Model.Enums;
 
+[Flags]
 public enum AllowedPaymentSchemes
 {
     FasterPayments = 1 << 0,

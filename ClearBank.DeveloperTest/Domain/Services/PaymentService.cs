@@ -1,4 +1,6 @@
-﻿using ClearBank.DeveloperTest.Domain.Repositories;
+﻿using ClearBank.DeveloperTest.Domain.Model;
+using ClearBank.DeveloperTest.Domain.Model.Enums;
+using ClearBank.DeveloperTest.Domain.Repositories;
 using ClearBank.DeveloperTest.Domain.Types;
 
 namespace ClearBank.DeveloperTest.Domain.Services;
@@ -12,61 +14,38 @@ public class PaymentService
     {
         Account account = accountRepository.GetAccount(request.DebtorAccountNumber);
 
-        var result = new MakePaymentResult
-        {
-            Success = true
-        };
+        DateTime now = DateTime.UtcNow;
+        PaymentTransaction? transaction = null;
 
         switch (request.PaymentScheme)
         {
             case PaymentScheme.Bacs:
-                if (account == null)
-                {
-                    result.Success = false;
-                }
-                else if (!account.AllowedPaymentSchemes.HasFlag(AllowedPaymentSchemes.Bacs))
-                {
-                    result.Success = false;
-                }
+                transaction = new BacsTransaction(request.Amount, now, account, null);
                 break;
 
             case PaymentScheme.FasterPayments:
-                if (account == null)
-                {
-                    result.Success = false;
-                }
-                else if (!account.AllowedPaymentSchemes.HasFlag(AllowedPaymentSchemes.FasterPayments))
-                {
-                    result.Success = false;
-                }
-                else if (account.Balance < request.Amount)
-                {
-                    result.Success = false;
-                }
+                transaction = new FasterPaymentsTransaction(request.Amount, now, account, null);
                 break;
 
             case PaymentScheme.Chaps:
-                if (account == null)
-                {
-                    result.Success = false;
-                }
-                else if (!account.AllowedPaymentSchemes.HasFlag(AllowedPaymentSchemes.Chaps))
-                {
-                    result.Success = false;
-                }
-                else if (account.Status != AccountStatus.Live)
-                {
-                    result.Success = false;
-                }
+                transaction = new ChapsTransaction(request.Amount, now, account, null);
                 break;
         }
 
-        if (result.Success)
+        if (transaction != null && transaction.IsValid())
         {
             account.Balance -= request.Amount;
             accountRepository.UpdateAccount(account);
+
+            return new MakePaymentResult
+            {
+                Success = true,
+            };
         }
 
-        return result;
+        return new MakePaymentResult
+        {
+            Success = false,
+        };
     }
 }

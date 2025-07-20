@@ -1,4 +1,6 @@
-﻿namespace ClearBank.DeveloperTest.Domain.Types;
+﻿using ClearBank.DeveloperTest.Domain.Model.Enums;
+
+namespace ClearBank.DeveloperTest.Domain.Types;
 
 public class MakePaymentRequest
 {

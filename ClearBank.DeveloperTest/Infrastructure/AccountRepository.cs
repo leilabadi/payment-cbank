@@ -1,5 +1,5 @@
-﻿using ClearBank.DeveloperTest.Domain.Repositories;
-using ClearBank.DeveloperTest.Domain.Types;
+﻿using ClearBank.DeveloperTest.Domain.Model;
+using ClearBank.DeveloperTest.Domain.Repositories;
 
 namespace ClearBank.DeveloperTest.Data;
 

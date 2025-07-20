@@ -1,4 +1,6 @@
 using AutoFixture;
+using ClearBank.DeveloperTest.Domain.Model;
+using ClearBank.DeveloperTest.Domain.Model.Enums;
 using ClearBank.DeveloperTest.Domain.Repositories;
 using ClearBank.DeveloperTest.Domain.Services;
 using ClearBank.DeveloperTest.Domain.Types;

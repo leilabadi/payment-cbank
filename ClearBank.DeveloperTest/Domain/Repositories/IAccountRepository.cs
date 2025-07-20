@@ -1,4 +1,4 @@
-﻿using ClearBank.DeveloperTest.Domain.Types;
+﻿using ClearBank.DeveloperTest.Domain.Model;
 
 namespace ClearBank.DeveloperTest.Domain.Repositories;
 
