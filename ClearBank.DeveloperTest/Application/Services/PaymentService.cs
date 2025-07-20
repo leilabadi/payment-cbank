@@ -7,8 +7,7 @@ using ClearBank.DeveloperTest.Domain.Services;
 
 namespace ClearBank.DeveloperTest.Application.Services;
 
-public class PaymentService
-: IPaymentService
+public class PaymentService : IPaymentService
 {
     private readonly IPaymentTransferService _paymentTransferService;
     private readonly IAccountRepository _accountRepository;

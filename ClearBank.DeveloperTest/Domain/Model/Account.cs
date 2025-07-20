@@ -4,7 +4,7 @@ namespace ClearBank.DeveloperTest.Domain.Model;
 
 public class Account
 {
-    public string AccountNumber { get; set; }
+    public string AccountNumber { get; init; } = null!;
 
     // In real world applications, we should handle different currencies
     public decimal Balance { get; set; }

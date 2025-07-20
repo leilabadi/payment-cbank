@@ -4,9 +4,9 @@ namespace ClearBank.DeveloperTest.Application.Types;
 
 public class MakePaymentRequest
 {
-    public string CreditorAccountNumber { get; set; }
+    public required string CreditorAccountNumber { get; set; }
 
-    public string DebtorAccountNumber { get; set; }
+    public required string DebtorAccountNumber { get; set; }
 
     public decimal Amount { get; set; }
 
