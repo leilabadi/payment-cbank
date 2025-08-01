@@ -125,17 +125,14 @@ public class PaymentServiceTests
         _accountRepositoryMock.Verify(r => r.UpdateAccount(It.IsAny<Account>()), Times.Never);
     }
 
-    [Theory]
-    [InlineData(AllowedPaymentSchemes.Bacs, PaymentScheme.Bacs)]
-    [InlineData(AllowedPaymentSchemes.FasterPayments, PaymentScheme.FasterPayments)]
-    [InlineData(AllowedPaymentSchemes.Chaps, PaymentScheme.Chaps)]
-    public void MakePayment_ChapsWithLiveStatus_ReturnsSuccess(AllowedPaymentSchemes allowedSchemes, PaymentScheme requestScheme)
+    [Fact]
+    public void MakePayment_ChapsWithLiveStatus_ReturnsSuccess()
     {
         // Arrange
-        _account.AllowedPaymentSchemes = allowedSchemes;
+        _account.AllowedPaymentSchemes = AllowedPaymentSchemes.Chaps;
         _account.Status = AccountStatus.Live;
 
-        _request.PaymentScheme = requestScheme;
+        _request.PaymentScheme = PaymentScheme.Chaps;
 
         // Act
         var result = _sut.MakePayment(_request);

@@ -7,10 +7,6 @@ public class BacsTransactionValidator : ITransactionValidator
 {
     public bool IsValid(Account account, PaymentTransaction transaction)
     {
-        if (!account.IsPaymentSchemeAllowed(AllowedPaymentSchemes.Bacs))
-        {
-            return false;
-        }
-        return true;
+        return account.IsPaymentSchemeAllowed(AllowedPaymentSchemes.Bacs);
     }
 }

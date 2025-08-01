@@ -7,14 +7,7 @@ public class ChapsTransactionValidator : ITransactionValidator
 {
     public bool IsValid(Account account, PaymentTransaction transaction)
     {
-        if (!account.IsPaymentSchemeAllowed(AllowedPaymentSchemes.Chaps))
-        {
-            return false;
-        }
-        else if (!account.IsAccountLive())
-        {
-            return false;
-        }
-        return true;
+        return account.IsPaymentSchemeAllowed(AllowedPaymentSchemes.Chaps)
+            && account.IsAccountLive();
     }
 }

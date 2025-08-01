@@ -7,14 +7,7 @@ public class FasterPaymentsTransactionValidator : ITransactionValidator
 {
     public bool IsValid(Account account, PaymentTransaction transaction)
     {
-        if (!account.IsPaymentSchemeAllowed(AllowedPaymentSchemes.FasterPayments))
-        {
-            return false;
-        }
-        else if (!account.HasSufficientFunds(transaction.Amount))
-        {
-            return false;
-        }
-        return true;
+        return account.IsPaymentSchemeAllowed(AllowedPaymentSchemes.FasterPayments)
+            && account.HasSufficientFunds(transaction.Amount);
     }
 }
